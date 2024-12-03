@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import Documents from '@/components/documents'
 import AddDoc from '@/components/add_document';
 
 export default function Home() {
@@ -12,6 +13,7 @@ export default function Home() {
           <p className="pb-20">
             Have control to your documents...
           </p>
+          <Documents/>
           <AddDoc/>
         </div>
       </div>

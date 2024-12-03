@@ -64,7 +64,7 @@ const AddDocument: React.FC = () => {
                 </label>
                 <input
                     type="text"
-                    className="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
+                    className="block w-full mt-1 text-black border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
                     id="documentName"
                     value={documentName}
                     onChange={handleDocumentNameChange}
@@ -73,7 +73,7 @@ const AddDocument: React.FC = () => {
                     Description
                 </label>
                 <textarea
-                    className="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
+                    className="text-black block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
                     id="description"
                     value={description}
                     onChange={handleDescriptionChange}
@@ -83,7 +83,7 @@ const AddDocument: React.FC = () => {
                 </label>
                 <input
                     type="file"
-                    className="block w-full mt-1"
+                    className="text-black block w-full mt-1"
                     id="image"
                     onChange={handleImageChange}
                 />
