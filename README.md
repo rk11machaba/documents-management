@@ -1,36 +1,62 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Document Management System
 
-## Getting Started
+A lightweight web-based Document Management System that allows users to manage their documents locally with features such as adding, searching, viewing, and deleting documents.
 
-First, run the development server:
+---
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## Features
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- **Add Documents**: Upload document metadata (name, description, and optional image).
+- **Search Functionality**: Filter documents by name in real-time.
+- **View Documents**: Preview document details and associated images in a modal.
+- **Delete Documents**: Remove unwanted documents from the system.
+- **Local Storage Persistence**: All data is stored locally in the browser.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+---
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Technologies Used
 
-## Learn More
+- **React**: Component-based UI development.
+- **TypeScript**: Static typing for better maintainability.
+- **LocalStorage**: Data persistence without a backend.
+- **React-Toastify**: User-friendly notifications.
 
-To learn more about Next.js, take a look at the following resources:
+---
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Installation and Setup
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### Prerequisites
+- Node.js installed on your system.
+- A package manager like npm or yarn.
 
-## Deploy on Vercel
+### Steps
+1. Clone the repository:
+    ```bash
+    git clone https://github.com/rk11machaba/documents-management.git
+    cd documents-management-system
+    ```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+2. Install dependencies:
+    ```bash
+    npm install
+    ```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+3. Start the development server:
+    ```bash
+    npm run dev
+    ```
+
+4. Open your browser and navigate to `http://localhost:3000`.
+
+---
+
+## Project Structure
+
+```plaintext
+.
+├── components
+│   ├── add_document.tsx     # Component to add new documents
+│   ├── documents.tsx       # Component to list, search, and manage documents
+├── public                 # Static assets like images
+├── package.json           # Project configuration and dependencies
+└── README.md              # Project documentation
