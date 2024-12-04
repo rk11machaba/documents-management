@@ -47,7 +47,7 @@ const Documents: React.FC = () => {
                     <div className="mb-3">
                         <input
                             type="text"
-                            className="form-control"
+                            className="text-black form-control"
                             placeholder="Search documents..."
                             value={searchQuery}
                             onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
