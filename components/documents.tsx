@@ -1,6 +1,6 @@
 'use client';
 import React, { useState, useEffect } from 'react';
-import { convertWordToPdf, convertTextToPdf, downloadFile, detectFileType, canConvertToPdf } from '@/utils/documentConverter';
+import { convertWordToPdfAdvanced, convertWordToPdfBasic, convertTextToPdf, downloadFile, detectFileType, canConvertToPdf } from '@/utils/documentConverter';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -20,6 +20,8 @@ const Documents: React.FC = () => {
     const [showModal, setShowModal] = useState(false);
     const [searchQuery, setSearchQuery] = useState<string>('');
     const [isConverting, setIsConverting] = useState<string | null>(null);
+    const [showConversionModal, setShowConversionModal] = useState(false);
+    const [selectedDocumentForConversion, setSelectedDocumentForConversion] = useState<Document | null>(null);
 
     useEffect(() => {
         try {
@@ -45,8 +47,14 @@ const Documents: React.FC = () => {
         }
     };
 
-    const handleConvertToPdf = async (document: Document) => {
+    const handleShowConversionModal = (document: Document) => {
+        setSelectedDocumentForConversion(document);
+        setShowConversionModal(true);
+    };
+
+    const handleConvertToPdf = async (document: Document, useAdvanced: boolean = true) => {
         setIsConverting(document.id);
+        setShowConversionModal(false);
         
         try {
             if (!document.image) {
@@ -70,7 +78,11 @@ const Documents: React.FC = () => {
             const fileType = detectFileType(file);
             
             if (fileType === 'docx' || fileType === 'doc') {
-                const result = await convertWordToPdf(file);
+                toast.info('Converting document... This may take a moment.');
+                const result = useAdvanced 
+                    ? await convertWordToPdfAdvanced(file)
+                    : await convertWordToPdfBasic(file);
+                    
                 if (result.success && result.data && result.filename) {
                     downloadFile(result.data, result.filename);
                     toast.success('Document converted to PDF successfully!');
@@ -178,7 +190,7 @@ const Documents: React.FC = () => {
                                                     {document.fileType && canConvertToPdf(document.fileType) && document.fileType !== 'pdf' && (
                                                         <button
                                                             className="px-3 py-1.5 bg-green-600 hover:bg-green-700 text-white rounded-lg transition-colors duration-200 text-sm font-medium disabled:opacity-50 disabled:cursor-not-allowed"
-                                                            onClick={() => handleConvertToPdf(document)}
+                                                            onClick={() => handleShowConversionModal(document)}
                                                             disabled={isConverting === document.id}
                                                         >
                                                             {isConverting === document.id ? 'Converting...' : 'To PDF'}
@@ -246,7 +258,7 @@ const Documents: React.FC = () => {
                                                     className="mt-4 px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded-lg transition-colors duration-200"
                                                     onClick={() => {
                                                         setShowModal(false);
-                                                        handleConvertToPdf(selectedDocument);
+                                                        handleShowConversionModal(selectedDocument);
                                                     }}
                                                 >
                                                     Convert to PDF
@@ -256,6 +268,58 @@ const Documents: React.FC = () => {
                                     )}
                                 </div>
                             )}
+                        </div>
+                    </div>
+                </div>
+            )}
+
+            {showConversionModal && selectedDocumentForConversion && (
+                <div
+                    className="fixed inset-0 bg-black/70 backdrop-blur-sm flex items-center justify-center z-50 p-4"
+                    onClick={() => setShowConversionModal(false)}
+                >
+                    <div 
+                        className="bg-white rounded-2xl shadow-2xl max-w-md w-full"
+                        onClick={(e) => e.stopPropagation()}
+                    >
+                        <div className="p-6">
+                            <h3 className="text-xl font-bold text-gray-900 mb-4">Choose Conversion Quality</h3>
+                            <p className="text-gray-600 mb-6">
+                                Select the conversion method for "{selectedDocumentForConversion.name}"
+                            </p>
+                            
+                            <div className="space-y-4">
+                                <button
+                                    className="w-full p-4 text-left bg-green-50 hover:bg-green-100 border border-green-200 rounded-lg transition-colors duration-200"
+                                    onClick={() => handleConvertToPdf(selectedDocumentForConversion, true)}
+                                    disabled={isConverting === selectedDocumentForConversion.id}
+                                >
+                                    <div className="font-semibold text-green-800">High Quality (Recommended)</div>
+                                    <div className="text-sm text-green-600 mt-1">
+                                        Preserves formatting, fonts, and layout. Takes longer but better results.
+                                    </div>
+                                </button>
+                                
+                                <button
+                                    className="w-full p-4 text-left bg-blue-50 hover:bg-blue-100 border border-blue-200 rounded-lg transition-colors duration-200"
+                                    onClick={() => handleConvertToPdf(selectedDocumentForConversion, false)}
+                                    disabled={isConverting === selectedDocumentForConversion.id}
+                                >
+                                    <div className="font-semibold text-blue-800">Fast Conversion</div>
+                                    <div className="text-sm text-blue-600 mt-1">
+                                        Quick conversion with basic formatting. Good for simple documents.
+                                    </div>
+                                </button>
+                            </div>
+                            
+                            <div className="mt-6 flex justify-end">
+                                <button
+                                    className="px-4 py-2 text-gray-600 hover:text-gray-800 transition-colors"
+                                    onClick={() => setShowConversionModal(false)}
+                                >
+                                    Cancel
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>

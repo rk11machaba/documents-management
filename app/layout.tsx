@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
+import Footer from "@/components/footer";
+import ErrorBoundary from "@/components/error-boundary";
 import "./globals.css";
 
 const geistSans = localFont({
@@ -14,8 +16,8 @@ const geistMono = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "MyDocs",
-  description: "view, search and delete your documents. Developed by machabakaizer",
+  title: "MyDocs - Document Management System",
+  description: "Manage, convert, and organize your documents with ease. Developed by Machaba Kaizer",
 };
 
 export default function RootLayout({
@@ -26,9 +28,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen flex flex-col`}
       >
-        {children}
+        <ErrorBoundary>
+          {children}
+          <Footer />
+        </ErrorBoundary>
       </body>
     </html>
   );

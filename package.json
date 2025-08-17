@@ -11,8 +11,10 @@
   "dependencies": {
     "@types/file-saver": "^2.0.7",
     "@types/pdfkit": "^0.17.2",
+    "docx-preview": "^0.3.6",
     "file-saver": "^2.0.5",
     "html-pdf-node": "^1.0.8",
+    "html-to-image": "^1.11.13",
     "html2canvas": "^1.4.1",
     "jspdf": "^3.0.1",
     "mammoth": "^1.10.0",
