@@ -4,6 +4,16 @@ import { toast, ToastContainer } from 'react-toastify';
 import { detectFileType } from '@/utils/documentConverter';
 import 'react-toastify/dist/ReactToastify.css';
 
+interface Document {
+    id: string;
+    name: string;
+    date: string;
+    image?: string;
+    fileType?: string;
+    size?: string;
+    description?: string;
+}
+
 const AddDocument: React.FC = () => {
     const [documentName, setDocumentName] = useState<string>('');
     const [description, setDescription] = useState<string>('');
@@ -72,9 +82,9 @@ const AddDocument: React.FC = () => {
 
         try {
             const currentDate = new Date().toLocaleDateString();
-            const existingDocuments: any[] = JSON.parse(
+            const existingDocuments = JSON.parse(
                 localStorage.getItem('documents') || '[]'
-            );
+            ) as Document[];
             
             const newDocument = {
                 id: Date.now().toString() + '_' + Math.random().toString(36).substr(2, 9),
@@ -105,7 +115,7 @@ const AddDocument: React.FC = () => {
             setTimeout(() => {
                 window.location.reload();
             }, 1500);
-        } catch (error) {
+        } catch {
             toast.error('An error occurred while saving the document.');
         }
     };

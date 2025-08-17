@@ -132,18 +132,8 @@ export const convertWordToPdfBasic = async (file: File): Promise<ConversionResul
     const arrayBuffer = await file.arrayBuffer();
     
     const result = await mammoth.convertToHtml({ 
-      arrayBuffer,
-      styleMap: [
-        "p[style-name='Title'] => h1.title",
-        "p[style-name='Heading 1'] => h1",
-        "p[style-name='Heading 2'] => h2",
-        "p[style-name='Heading 3'] => h3",
-        "r[style-name='Strong'] => strong",
-        "r[style-name='Emphasis'] => em",
-        "p[style-name='Normal'] => p"
-      ],
-      ignoreEmptyElements: false
-    });
+      arrayBuffer
+    } as any);
     
     const html = result.value;
     

@@ -285,7 +285,7 @@ const Documents: React.FC = () => {
                         <div className="p-6">
                             <h3 className="text-xl font-bold text-gray-900 mb-4">Choose Conversion Quality</h3>
                             <p className="text-gray-600 mb-6">
-                                Select the conversion method for "{selectedDocumentForConversion.name}"
+                                Select the conversion method for &quot;{selectedDocumentForConversion.name}&quot;
                             </p>
                             
                             <div className="space-y-4">
